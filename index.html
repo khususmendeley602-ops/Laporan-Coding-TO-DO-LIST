@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List Cantik</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #f8f9fa, #e3f2fd);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 25px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            width: 380px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        button {
+            margin-left: 10px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background: #f1f1f1;
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            transition: 0.3s ease;
+        }
+
+        li.checked {
+            background: #c8e6c9;
+            text-decoration: line-through;
+            color: #555;
+        }
+
+        .deleteBtn {
+            background: #ff5252;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            padding: 6px 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .deleteBtn:hover {
+            background: #e53935;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📝 To-Do List Harian</h2>
+    <div class="input-group">
+        <input type="text" id="taskInput" placeholder="Tulis tugas kamu...">
+        <button onclick="addTask()">Tambah</button>
+    </div>
+    <ul id="taskList"></ul>
+</div>
+
+<script>
+    function addTask() {
+        const input = document.getElementById("taskInput");
+        const list = document.getElementById("taskList");
+
+        const taskText = input.value.trim();
+        if (taskText === "") return;
+
+        const li = document.createElement("li");
+        li.innerHTML = `
+            <span>${taskText}</span>
+            <button class="deleteBtn">Hapus</button>
+        `;
+
+        li.addEventListener("click", (e) => {
+            if (!e.target.classList.contains("deleteBtn")) {
+                li.classList.toggle("checked");
+            }
+        });
+
+        li.querySelector(".deleteBtn").addEventListener("click", () => li.remove());
+        list.appendChild(li);
+        input.value = "";
+    }
+</script>
+
+</body>
+</html>
